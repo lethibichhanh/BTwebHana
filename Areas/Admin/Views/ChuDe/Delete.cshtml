@@ -1,0 +1,48 @@
+﻿@model SachOnline.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    h3, h4 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+
+<h3>Bạn quyết định xóa chủ đề này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao) </h4>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tên sách:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-default" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ CHỦ ĐỀ", "Index")
+        </div>
+    }
+</div>

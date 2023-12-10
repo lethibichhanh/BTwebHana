@@ -1,0 +1,102 @@
+﻿@model SachOnline.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    h3, h4 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+
+<h3>Bạn quyết định xóa khách hàng này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao) </h4>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tên khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tài khoản:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Taikhoan)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Mật khẩu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matkhau)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Email:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Địa chỉ khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiachiKH)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Điện thoại khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoaiKH)
+        </dd>
+
+        
+
+        <dt>
+            @* @Html.DisplayNameFor(model => model.Published)*@
+            Ngày sinh:
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Published)*@
+            @Html.FormatValue(Model.Ngaysinh, "{0:dd/MM/yyyy}")
+        </dd>
+
+       
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-default" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ KHÁCH HÀNG", "Index")
+        </div>
+    }
+</div>

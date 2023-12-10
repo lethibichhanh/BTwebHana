@@ -1,0 +1,104 @@
+﻿@model SachOnline.Models.DONDATHANG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+
+<h3>Bạn quyết định xóa đơn hàng này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao) </h4>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Mã đơn hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaDonHang)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Mã khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHACHHANG.MaKH)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tên khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHACHHANG.HoTen)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Thanh toán:
+        </dt>
+
+        <dd>
+            @{
+                if (Model.Dathanhtoan == false)
+                {
+                    <span style="color: red;">Chưa thanh toán</span>
+                }
+                else
+                {
+                    <span style="color: green;">Đã thanh toán</span>
+                }
+            }
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tình trạng giao:
+        </dt>
+
+        <dd>
+            @{
+                if (Model.Tinhtranggiaohang == 0)
+                {
+                    <span style="color: red;">Đang giao</span>
+                }
+                else
+                {
+                    <span style="color: green;">Đã giao</span>
+                }
+            }
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Ngày đặt:
+        </dt>
+
+        <dd>
+            @Html.FormatValue(Model.Ngaydat, "{0:dd/MM/yyyy}")
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Ngày giao:
+        </dt>
+
+        <dd>
+            @Html.FormatValue(Model.Ngaygiao, "{0:dd/MM/yyyy}")
+        </dd>
+        
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-default" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ ĐƠN HÀNG", "Index")
+        </div>
+    }
+</div>

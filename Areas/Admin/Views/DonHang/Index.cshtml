@@ -1,0 +1,200 @@
+﻿@*Khai bao su dung chuc nang phan trang*@
+@using SachOnline.Models;
+@using PagedList.Mvc;
+@*@model IEnumerable<SachOnline.Models.Book>*@
+@*@model PagedList.PagedList<SachOnline.Models.DONDATHANG>*@
+@model PagedList.PagedList<SachOnline.Models.donhang>
+
+
+@using PagedList;
+@using PagedList.Mvc;
+
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center">QUẢN LÝ THÔNG TIN ĐƠN HÀNG</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Images)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Published)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhaXuatBanID)
+        </th>
+        <th></th>*@
+
+        <th style="text-align:center;width:140px">
+            Mã đơn hàng
+        </th>
+        <th style="text-align:center;width:200px">
+            Tên khách hàng
+        </th>
+        @*<th style="text-align:center;width:200px">
+            Thanh toán
+        </th>
+        <th style="text-align:center;width:200px">
+            Tình trạng giao
+        </th>*@
+        <th style="text-align:center;width:200px">
+            Ngày đặt
+        </th>
+        <th style="text-align:center;width:200px">
+            Ngày giao
+        </th>
+
+        <th style="text-align:center;width:80px">
+            Số lượng
+        </th>
+        <th style="text-align:center;width:80px">
+            Mã sách
+        </th>
+        <th style="text-align:center;width:80px">
+            Tên sách
+        </th>
+        <th style="text-align:center;width:80px">
+            Tổng tiền
+        </th>
+
+        <th style="text-align:center"></th>
+    </tr>
+   
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MaDonHang)
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HoTen)
+
+    </td>
+
+    @*<td>
+            @Html.DisplayFor(modelItem => item.AuthorID)
+
+        </td>
+    <td>
+        @{
+            if (item.Dathanhtoan == 0)
+            {
+                <span style="color: red;">Chưa thanh toán</span>
+            }
+            else
+            {
+                <span style="color: green;">Đã thanh toán</span>
+            }
+        }
+    </td>
+    <td>
+        @{
+            if (item.Tinhtranggiaohang == 0)
+            {
+                <span style="color: red;">Đang giao</span>
+            }
+            else
+            {
+                <span style="color: green;">Đã giao</span>
+            }
+        }
+    </td>*@
+
+
+    <td>
+        @*Định dạng hiển thị*@
+        @*@Html.DisplayFor(modelItem => item.Published)*@
+        @Html.FormatValue(item.Ngaydat, "{0:dd/MM/yyyy}")
+    </td>
+    <td>
+        @*Định dạng hiển thị*@
+        @*@Html.DisplayFor(modelItem => item.Published)*@
+        @Html.FormatValue(item.Ngaygiao, "{0:dd/MM/yyyy}")
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Soluong)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Dongia)
+    </td>
+
+    @*
+        <td>
+        @Html.DisplayFor(modelItem => item.Price)
+        @Html.FormatValue(item.Price, "{0:#,##0}")
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.KHACHHANG.HoTen)
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.NhaXuatBan.NhaXuatBanName)
+        </td>*@
+
+    <td>
+        <a href="@Url.Action("Edit", new { id=item.MaDonHang })" class="btn btn-warning" role="button">Sửa</a>
+        <a href="@Url.Action("Details", new { id=item.MaDonHang })" class="btn btn-primary" role="button">Chi tiết</a>
+        <a href="@Url.Action("Delete", new { id=item.MaDonHang })" class="btn btn-danger" role="button">Xóa</a>
+
+    </td>
+</tr>
+    }
+
+</table>
+@*Tạo liên kết phần trang*@
+    Trang @(Model.PageCount<Model.PageNumber ?0: Model.PageNumber)/@Model.PageCount
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+    <style>
+        .MenuTrang {
+            display: inline;
+            text-align: center;
+        }
+@*<div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>*@
+
+
+
+    </style>

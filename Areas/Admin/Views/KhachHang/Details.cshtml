@@ -1,0 +1,89 @@
+﻿@model SachOnline.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>CHI TIẾT KHÁCH HÀNG</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tên khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Tài khoản:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Taikhoan)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Mật khẩu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matkhau)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Email:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Địa chỉ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiachiKH)
+        </dd>
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Điện thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoaiKH)
+        </dd>
+
+       
+
+        <dt>
+            @* @Html.DisplayNameFor(model => model.Published)*@
+            Ngày sinh:
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Published)*@
+            @Html.FormatValue(Model.Ngaysinh, "{0:dd/MM/yyyy}")
+        </dd>
+
+       
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaKH }) |
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ KHÁCH HÀNG", "Index")
+</p>

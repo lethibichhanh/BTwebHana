@@ -1,0 +1,158 @@
+﻿@*@model SachOnline.Models.DONDATHANG*@
+@using SachOnline.Models;
+@using PagedList.Mvc;
+@model SachOnline.Models.DONDATHANG
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ĐIỀU CHỈNH THÔNG TIN ĐƠN HÀNG</h2>
+@*Thêm thuộc tính cho form để upload ảnh*@
+@using (Html.BeginForm("Edit", "DonHang", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*@Html.HiddenFor(model => model.BookID)*@
+
+    <div class="form-group">
+        @*    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+        <label class="control-label col-md-2">Mã đơn hàng:</label>
+
+        <div class="col-md-10">
+            @*Chỉ hiển thị mã sách không cho sửa*@
+            @*@Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })*@
+            <input type="text" size="70" name="iMaDonHang" value="@Model.Order.MaDonHang" readonly />
+
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            <label class="control-label col-md-2">Tên khách hàng:</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaKH")
+                <input type="text" size="70" name="iHoTen" value="@Model.Order.KHACHHANG.HoTen" required />
+
+            </div>
+        </div>*@
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Thanh toán:</label>
+        <div class="col-md-10">
+
+            <input type="text" size="70" name="iDathanhtoan" value="@Model.Order.Dathanhtoan" required />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Tình trạng giao:</label>
+        <div class="col-md-10">
+
+            <input type="text" size="70" name="iTinhtranggiaohang" value="@Model.Order.Tinhtranggiaohang" required />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @*@Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Published, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+            </div>*@
+        <label class="control-label col-md-2">Ngày đặt:</label>
+        <div class="col-md-10">
+            <input type="datetime" name="iNgaydat" required value="@Convert.ToDateTime(Model.Order.Ngaydat)" />
+        </div>
+    </div>
+    <div class="form-group">
+        @*@Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Published, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+            </div>*@
+        <label class="control-label col-md-2">Ngày giao:</label>
+        <div class="col-md-10">
+            <input type="datetime" name="iNgaygiao" required value="@Convert.ToDateTime(Model.Order.Ngaygiao)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @*@Html.LabelFor(model => model.ViewCount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ViewCount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
+            </div>*@
+        <label class="control-label col-md-2">Số lượng:</label>
+        <div class="col-md-10">
+            <input type="number" min="1" required name="iSoluong"
+                   value="@Model.Soluong" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @* @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>*@
+        <label class="control-label col-md-2">Đơn giá:</label>
+        <div class="col-md-10">
+            <input type="number" min="1" required name="iDongia"
+                   value="@Model.Dongia" />
+        </div>
+    </div>
+
+
+
+    @* <div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+            <label class="control-label col-md-2">Mã sách:</label>
+            <div class="col-md-10">
+                @*Hiển thị ViewBag.MaCD vào dropdownlist
+                @Html.DropDownList("BookID")
+            </div>
+        </div>*@
+
+
+
+
+
+
+
+    @*<div class="form-group">
+                @Html.LabelFor(model => model.NhaXuatBanID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NhaXuatBanID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NhaXuatBanID, "", new { @class = "text-danger" })
+                    </div>
+            <label class="control-label col-md-2">Tên khách hàng:</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaKH")
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="LƯU THÔNG TIN" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ ĐƠN HÀNG", "Index")
+</div>

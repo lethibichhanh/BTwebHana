@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p>
+    <button class="btn btn-success" id="btnAdd"><i class="fa fa-plus" aria-hidden="true"></i> Thêm Chủ Đề</button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-ms-9">
+                Tên Mỹ Phẩm
+            </th>
+            <th class="col-ms-3 text-right">Các chức năng</th>
+        </tr>
+    </thead>
+    <tbody id="tblDsChuDe">
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadDsChuDe();
+
+        // Click nút chi tiết
+        $(document).on('click', "button[name='view']", function () {
+            let idCD = $(this).closest('tr').attr('id');
+            $.ajax({
+                url: '/Admin/ChuDe/Detail',
+                type: 'get',
+                data: {
+                    CategoryID: idCD
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        // Đưa dữ liệu lên modal
+                        $('#txtCategoryName').val(data.cd.CategoryName);
+                        // Không cho chỉnh sửa trên thẻ input
+                        $('#txtCategoryName').prop('readonly', true);
+                        // Ấn nút Submit
+                        $('#btnSubmit').hide();
+                        $('#modalTitle').text('Xem chi tiết chủ đề');
+                        $('#modalChuDe').modal();
+                    }
+                    else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    });
+
+    function LoadDsChuDe() {
+        $.ajax({
+            url: '/Admin/ChuDe/DsChuDe',
+            type: 'get',
+            success: function (data) {
+                if (data.code == 200) {
+                    $('#tblDsChuDe').empty();
+                    $.each(data.dsCD, function (f, v) {
+                        let s = '<tr id="' + v.CategoryID + '">';
+                        s += '<td class="col-ms-9">' + v.CategoryName + '</td>';
+                        s += '<td class="col-ms-3 text-right">';
+                        s += '<button class="btn btn-info btn-sm" name="view"><i class="fa fa-info-circle" aria-hidden="true"></i> Xem</button>&nbsp;';
+                        s += '<button class="btn btn-warning btn-sm" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</button>&nbsp;';
+                        s += '<button class="btn btn-danger btn-sm" name="delete"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</button>';
+                        s += '</td>';
+                        s += '</tr>';
+                        $('#tblDsChuDe').append(s);
+                    });
+                }
+            }
+        });
+    }
+</script>
+
+<div class="modal fade" id="modalChuDe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="modalTitle"></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="text" id="CategoryID" value="" hidden />
+                        <label> Tên mỹ phẩm</label>
+                        <input type="text" class="form-control" id="txtCategoryName" placeholder="Tên chủ đề" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSubmit">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
